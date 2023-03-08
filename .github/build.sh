@@ -1,3 +1,9 @@
+# Checkout GIT
+git config user.name github-actions[bot]
+git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+git fetch origin download
+git checkout download
+
 # Build ZIP
 echo "Building ZIP..."
 
@@ -26,7 +32,7 @@ zip -r Arsenal-Bukkit.zip bukkit
 echo "Removing Unused Files..."
 # Remove Unused Files
 shopt -s extglob
-rm -v !(*.zip)
+rm -rfv !(*.zip)
 
 echo "Creating Hashes..."
 # Create ZIP Hashes
@@ -38,11 +44,6 @@ echo "$BUKKIT_HASH" > Arsenal-Bukkit.zip.sha1
 
 echo "Committing..."
 # Commit ZIP
-
-git config user.name github-actions[bot]
-git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-git fetch origin download
-git checkout download
 
 git add ./
 
