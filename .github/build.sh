@@ -27,10 +27,16 @@ do
 #   cp -rfv models/arsenal/* $folder/assets/arsenal/models/
 done
 
+mkdir mod/assets/arsenal/lang/
 cp -rfv lang/* mod/assets/arsenal/lang/
 
-zip -r Arsenal-Mod.zip mod/*
-zip -r Arsenal-Bukkit.zip bukkit/*
+cd mod
+zip -r ../Arsenal-Mod.zip *
+cd ..
+
+cd bukkit
+zip -r ../Arsenal-Bukkit.zip *
+cd ..
 
 echo "Removing Unused Files..."
 # Remove Unused Files
