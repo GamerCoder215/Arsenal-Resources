@@ -1,10 +1,5 @@
-# Checkout GIT
-git config user.name github-actions[bot]
-git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-git fetch origin download
-
 # Build ZIP
-echo "Building ZIP..."
+echo "Building Folders..."
 
 folders=( bukkit mod )
 
@@ -30,6 +25,8 @@ done
 mkdir mod/assets/arsenal/lang/
 cp -rfv lang/* mod/assets/arsenal/lang/
 
+echo "Zipping..."
+
 cd mod
 zip -r ../Arsenal-Mod.zip *
 cd ..
@@ -53,6 +50,9 @@ echo "$BUKKIT_HASH" > Arsenal-Bukkit.zip.sha1
 
 echo "Committing..."
 # Commit ZIP
+git config user.name github-actions[bot]
+git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+git fetch origin download
 git checkout download
 git add ./
 
