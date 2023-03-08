@@ -32,7 +32,10 @@ cp -rfv lang/* mod/assets/arsenal/lang/
 zip -r Arsenal-Mod.zip mod
 zip -r Arsenal-Bukkit.zip bukkit
 
-
+echo "Removing Unused Files..."
+# Remove Unused Files
+shopt -s extglob
+rm -rfv !(*.zip)
 
 echo "Creating Hashes..."
 # Create ZIP Hashes
