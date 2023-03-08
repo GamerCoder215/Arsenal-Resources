@@ -27,13 +27,9 @@ cp -rfv lang/* mod/assets/arsenal/lang/
 
 echo "Zipping..."
 
-cd mod
-zip -r ../Arsenal-Mod.zip *
-cd ..
+(cd mod&& zip -r ../Arsenal-Mod.zip .)
 
-cd bukkit
-zip -r ../Arsenal-Bukkit.zip *
-cd ..
+(cd bukkit && zip -r ../Arsenal-Bukkit.zip .)
 
 echo "Removing Unused Files..."
 # Remove Unused Files
