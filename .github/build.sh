@@ -13,7 +13,11 @@ do
   mkdir $folder
 
   cp -rfv pack.mcmeta pack.png LICENSE README.md $folder/
-  cp -rfv "textures/*" $folder/assets/arsenal/textures/
+
+  mkdir $folder/assets/
+  mkdir $folder/assets/arsenal/
+  mkdir $folder/assets/arsenal/textures/
+  cp -rfv textures/* $folder/assets/arsenal/textures/
 
 #   if [[ "$folder" == *"bukkit"* ]]; then
 #     mkdir $folder/assets/minecraft/
@@ -28,10 +32,7 @@ cp -rfv lang/* mod/assets/arsenal/lang/
 zip -r Arsenal-Mod.zip mod
 zip -r Arsenal-Bukkit.zip bukkit
 
-echo "Removing Unused Files..."
-# Remove Unused Files
-shopt -s extglob
-rm -rfv !(*.zip)
+
 
 echo "Creating Hashes..."
 # Create ZIP Hashes
