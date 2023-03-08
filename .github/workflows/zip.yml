@@ -1,0 +1,16 @@
+name: Generate Download
+
+on:
+  push:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build, Commit & Push ZIP
+        run: bash .github/build.sh ${GITHUB_SHA::7}
