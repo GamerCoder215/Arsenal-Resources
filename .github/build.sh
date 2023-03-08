@@ -25,11 +25,11 @@ zip -r Arsenal-Bukkit.zip bukkit
 
 echo "Removing Unused Files..."
 # Remove Unused Files
-rm -rfv !("Arsenal-Mod.zip"|"Arsenal-Bukkit.zip")
+shopt -s extglob
+rm -v !(*.zip)
 
 echo "Creating Hashes..."
 # Create ZIP Hashes
-shopt -s extglob
 MOD_HASH=$(sha1sum Arsenal-Mod.zip | cut -d ' ' -f 1)
 BUKKIT_HASH=$(sha1sum Arsenal-Bukkit.zip | cut -d ' ' -f 1)
 
