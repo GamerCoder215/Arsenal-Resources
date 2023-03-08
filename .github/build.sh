@@ -1,7 +1,7 @@
 # Build ZIP
 echo "Building Folders..."
 
-folders=( [bukkit]=Bukkit [mod]=Mod )
+declare -A folders=( [bukkit]=Bukkit [mod]=Mod )
 
 for folder in "${!folders[@]}" 
 do
@@ -20,10 +20,9 @@ do
 #   fi
 
 #   cp -rfv models/arsenal/* $folder/assets/arsenal/models/
+  mkdir $folder/assets/arsenal/lang
+  cp -rfv lang/* $folder/assets/arsenal/lang/
 done
-
-mkdir mod/assets/arsenal/lang/
-cp -rfv lang/* mod/assets/arsenal/lang/
 
 echo "Zipping..."
 (cd mod && zip -r ../Arsenal-Mod.zip .)
