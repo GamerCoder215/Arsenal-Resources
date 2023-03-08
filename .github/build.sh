@@ -1,9 +1,9 @@
 # Build ZIP
 echo "Building Folders..."
 
-folders=( bukkit mod )
+folders=( [bukkit]=Bukkit [mod]=Mod )
 
-for folder in "${folders[@]}" 
+for folder in "${!folders[@]}" 
 do
   mkdir $folder
 
@@ -26,9 +26,7 @@ mkdir mod/assets/arsenal/lang/
 cp -rfv lang/* mod/assets/arsenal/lang/
 
 echo "Zipping..."
-
-(cd mod&& zip -r ../Arsenal-Mod.zip .)
-
+(cd mod && zip -r ../Arsenal-Mod.zip .)
 (cd bukkit && zip -r ../Arsenal-Bukkit.zip .)
 
 echo "Removing Unused Files..."
@@ -36,13 +34,15 @@ echo "Removing Unused Files..."
 shopt -s extglob
 rm -rfv !(*.zip)
 
-echo "Creating Hashes..."
 # Create ZIP Hashes
-MOD_HASH=$(sha1sum Arsenal-Mod.zip | cut -d ' ' -f 1)
-BUKKIT_HASH=$(sha1sum Arsenal-Bukkit.zip | cut -d ' ' -f 1)
-
-echo "$MOD_HASH" > Arsenal-Mod.zip.sha1
-echo "$BUKKIT_HASH" > Arsenal-Bukkit.zip.sha1
+echo "Creating Hashes..."
+for folderName in "${folders[@]}"
+do
+  echo "$(sha1sum Arsenal-$folderName.zip | cut -d ' ' -f 1)" > Arsenal-$folderName.zip.sha1
+  echo "$(sha256sum Arsenal-$folderName.zip | cut -d ' ' -f 1)" > Arsenal-$folderName.zip.sha256
+  echo "$(sha512sum Arsenal-$folderName.zip | cut -d ' ' -f 1)" > Arsenal-$folderName.zip.sha512
+  echo "$(md5sum Arsenal-$folderName.zip | cut -d ' ' -f 1)" > Arsenal-$folderName.zip.md5
+done
 
 echo "Committing..."
 # Commit ZIP
