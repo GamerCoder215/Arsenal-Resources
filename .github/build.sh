@@ -6,10 +6,22 @@ cd models
 git clone https://github.com/GamerCoder215/Arsenal Arsenal
 
 mkdir minecraft
-cp -rfv Arsenal/bukkit/src/generated/resources/assets/minecraft/models/**/* ./minecraft/
+mkdir arsenal
 
-mkdir Arsenal
-cp -rfv Arsenal/core/src/generated/resources/assets/arsenal/models/**/* ./arsenal/
+FOLDERS=(item block)
+
+for folder in "${FOLDERS[@]}"
+do
+  if [ -d "Arsenal/bukkit/src/generated/resources/assets/minecraft/models/$folder/"]; then
+    mkdir minecraft/$folder
+    cp -rfv Arsenal/bukkit/src/generated/resources/assets/minecraft/models/$folder/* ./minecraft/$folder
+  fi
+
+  if [ -d "Arsenal/core/src/generated/resources/assets/arsenal/models/$folder/"]; then
+    mkdir arsenal/$folder
+    cp -rfv Arsenal/core/src/generated/resources/assets/arsenal/models/$folder/* ./arsenal/$folder
+  fi
+done
 
 rm -rf Arsenal
 cd ..
