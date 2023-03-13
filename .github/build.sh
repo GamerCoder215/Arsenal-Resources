@@ -77,8 +77,6 @@ echo "Zipping..."
 (cd mod && zip -r ../Arsenal-Mod.zip .)
 (cd bukkit && zip -r ../Arsenal-Bukkit.zip .)
 
-exit 127
-
 echo "Removing Unused Files..."
 # Remove Unused Files
 shopt -s extglob
