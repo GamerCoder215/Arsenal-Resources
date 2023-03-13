@@ -3,15 +3,15 @@ echo "Cloning Models..."
 mkdir models
 cd models
 
-git clone https://github.com/GamerCoder215/Arsenal arsenal
+git clone https://github.com/GamerCoder215/Arsenal Arsenal
 
 mkdir minecraft
-cp -rfv arsenal/bukkit/src/generated/resources/assets/minecraft/models/* ./minecraft/
+cp -rfv Arsenal/bukkit/src/generated/resources/assets/minecraft/models/* ./minecraft/
 
-mkdir arsenal
+mkdir Arsenal
 cp -rfv arsenal/core/src/generated/resources/assets/arsenal/models/* ./arsenal/
 
-rm -rf arsenal
+rm -rf Arsenal
 cd ..
 
 # Build ZIP
