@@ -1,25 +1,26 @@
 # Clone Models
 echo "Cloning Models..."
 mkdir models
+mkdir models/minecraft
+
+# For some, unknown reason, it won't create a folder named 'models/arsenal'
+mkdir models/arsenall
 cd models
 
-git clone https://github.com/GamerCoder215/Arsenal Arsenal
+git clone https://github.com/GamerCoder215/Arsenal GitArsenal
 
-mkdir minecraft
-mkdir arsenal
+modelFolders=( "block" "item" )
 
-FOLDERS=(item block)
-
-for folder in "${FOLDERS[@]}"
+for folder in "${modelFolders[@]}"
 do
-  if [ -d "Arsenal/bukkit/src/generated/resources/assets/minecraft/models/$folder/"]; then
+  if [[ -d "GitArsenal/bukkit/src/generated/resources/assets/minecraft/models/$folder" ]]; then
     mkdir minecraft/$folder
-    cp -rfv Arsenal/bukkit/src/generated/resources/assets/minecraft/models/$folder/* ./minecraft/$folder
+    cp -rfv GitArsenal/bukkit/src/generated/resources/assets/minecraft/models/$folder/* ./minecraft/$folder
   fi
 
-  if [ -d "Arsenal/core/src/generated/resources/assets/arsenal/models/$folder/"]; then
-    mkdir arsenal/$folder
-    cp -rfv Arsenal/core/src/generated/resources/assets/arsenal/models/$folder/* ./arsenal/$folder
+  if [[ -d "GitArsenal/core/src/generated/resources/assets/arsenal/models/$folder" ]]; then
+    mkdir arsenall/$folder
+    cp -rfv GitArsenal/core/src/generated/resources/assets/arsenal/models/$folder/* ./arsenall/$folder
   fi
 done
 
@@ -44,10 +45,30 @@ do
 
   if [[ "$folder" == *"bukkit"* ]]; then
     mkdir $folder/assets/minecraft/
-    cp -rfv models/minecraft/* $folder/assets/minecraft/models/
+    mkdir $folder/assets/minecraft/models/
+
+    for modelFolder in "${modelFolders[@]}"
+    do
+      if [[ ! -d "models/minecraft/$modelFolder" ]]; then 
+        continue
+      fi
+      mkdir $folder/assets/minecraft/models/$modelFolder
+      cp -rfv models/minecraft/$modelFolder/* $folder/assets/minecraft/models/$modelFolder
+    done
   fi
 
-  cp -rfv models/arsenal/* $folder/assets/arsenal/models/
+  mkdir $folder/assets/arsenal/models/
+
+  for modelFolder in "${modelFolders[@]}"
+  do
+    if [[ ! -d "models/arsenall/$modelFolder" ]]; then 
+      continue
+    fi
+
+    mkdir $folder/assets/arsenal/models/$modelFolder
+    cp -rfv models/arsenall/$modelFolder/* $folder/assets/arsenal/models/$modelFolder
+  done
+
   mkdir $folder/assets/arsenal/lang
   cp -rfv lang/* $folder/assets/arsenal/lang/
 done
@@ -55,6 +76,8 @@ done
 echo "Zipping..."
 (cd mod && zip -r ../Arsenal-Mod.zip .)
 (cd bukkit && zip -r ../Arsenal-Bukkit.zip .)
+
+exit 127
 
 echo "Removing Unused Files..."
 # Remove Unused Files
