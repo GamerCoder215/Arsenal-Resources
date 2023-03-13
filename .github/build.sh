@@ -1,3 +1,15 @@
+# Clone Models
+echo "Cloning Models..."
+mkdir models
+cd models
+
+git clone https://github.com/GamerCoder215/Arsenal arsenal
+cp arsenal/bukkit/src/generated/resources/assets/minecraft/models/* ./minecraft/
+cp arsenal/core/src/generated/resources/assets/arsenal/models/* ./arsenal/
+rm -rf arsenal
+
+cd ..
+
 # Build ZIP
 echo "Building Folders..."
 
@@ -14,12 +26,12 @@ do
   mkdir $folder/assets/arsenal/textures/
   cp -rfv textures/* $folder/assets/arsenal/textures/
 
-#   if [[ "$folder" == *"bukkit"* ]]; then
-#     mkdir $folder/assets/minecraft/
-#     cp -rfv models/minecraft/* $folder/assets/minecraft/models/
-#   fi
+  if [[ "$folder" == *"bukkit"* ]]; then
+    mkdir $folder/assets/minecraft/
+    cp -rfv models/minecraft/* $folder/assets/minecraft/models/
+  fi
 
-#   cp -rfv models/arsenal/* $folder/assets/arsenal/models/
+  cp -rfv models/arsenal/* $folder/assets/arsenal/models/
   mkdir $folder/assets/arsenal/lang
   cp -rfv lang/* $folder/assets/arsenal/lang/
 done
