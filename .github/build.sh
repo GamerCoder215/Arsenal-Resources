@@ -4,10 +4,14 @@ mkdir models
 cd models
 
 git clone https://github.com/GamerCoder215/Arsenal arsenal
-cp arsenal/bukkit/src/generated/resources/assets/minecraft/models/* ./minecraft/
-cp arsenal/core/src/generated/resources/assets/arsenal/models/* ./arsenal/
-rm -rf arsenal
 
+mkdir minecraft
+cp -rfv arsenal/bukkit/src/generated/resources/assets/minecraft/models/* ./minecraft/
+
+mkdir arsenal
+cp -rfv arsenal/core/src/generated/resources/assets/arsenal/models/* ./arsenal/
+
+rm -rf arsenal
 cd ..
 
 # Build ZIP
